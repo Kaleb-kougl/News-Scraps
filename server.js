@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 
 // STATIC FILES
-app.use(express.static('./views/public'));
+app.use(express.static('./app/views/public'));
 
 console.log(MONGODB);
 mongoose.connect(MONGODB)
