@@ -1,11 +1,19 @@
 $.getJSON("/articles", function (data) {
   for (var i = 0; i < data.length; i++) {
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+    $("#articles").append(
+      `<article data-id=${data[i]._id}>
+      
+        <h2>${data[i].title}</h2>
+        <a href=${data[i].link}>${data[i].link}</a>
+        <br /><br />
+        ${data[i].excerpt}
+      </article>`
+    );
   }
 });
 
 
-$(document).on("click", "p", function () {
+$(document).on("click", "article", function () {
   let notes = $("#notes");
   notes.empty();
   var thisId = $(this).attr("data-id");
@@ -15,7 +23,7 @@ $(document).on("click", "p", function () {
     url: "/articles/" + thisId
   })
     .then(function (data) {
-      console.log(data);
+      console.log(1, data);
       notes.append("<h2>" + data.title + "</h2>");
       notes.append("<input id='titleinput' name='title' >");
       notes.append("<textarea id='bodyinput' name='body'></textarea>");
@@ -41,7 +49,7 @@ $(document).on("click", "#savenote", function () {
   })
     .then(function (data) {
       console.log(data);
-      notes.empty();
+      // notes.empty();
     });
 
   $("#titleinput").val("");

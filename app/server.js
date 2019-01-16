@@ -31,9 +31,12 @@ app.get('/scrape', async function (req, res) {
   $('.post-wrapper article').each(function (i, element) {
     let result = {};
 
-    result.title = $(this)
+    timeRegex = /[0-9]+:[0-9]+[a-zA-Z\s]+/;
+    let title = $(this)
       .find('a')
-      .text()
+      .text();
+    title = title.replace(timeRegex, '');
+    result.title = title;
 
     result.link = $(this)
       .find('a')
