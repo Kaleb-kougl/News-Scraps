@@ -7,7 +7,7 @@ var axios = require('axios');
 var cheerio = require('cheerio');
 
 
-var db = require('./models');
+var db = require('./app/models');
 const MONGODB = process.env.MONGODB;
 const PORT = process.env.PORT || 3000;
 
