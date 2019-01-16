@@ -28,15 +28,20 @@ app.get('/scrape', async function (req, res) {
   let response = await axios.get('https://www.theonion.com/')
   // load response into scraper
   var $ = cheerio.load(response.data);
-  $('.post-wrapper article h1').each(function (i, element) {
+  $('.post-wrapper article').each(function (i, element) {
     let result = {};
+
     result.title = $(this)
-      .children("a")
-      .text();
+      .find('a')
+      .text()
 
     result.link = $(this)
-      .children('a')
+      .find('a')
       .attr('href');
+
+    result.excerpt = $(this)
+      .find('.excerpt')
+      .text();
 
     db.Article.create(result)
       .then(function (dbArticle) {
